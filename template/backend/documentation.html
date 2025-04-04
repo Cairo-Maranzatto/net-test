@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação Técnica - API de Gerenciamento de Vendas</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            font-size: 12pt;
+        }
+        .page {
+            page-break-after: always;
+            padding: 20px;
+        }
+        .last-page {
+            page-break-after: auto;
+        }
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 24pt;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 18pt;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        h3 {
+            font-size: 14pt;
+        }
+        h4 {
+            font-size: 12pt;
+            font-weight: bold;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header-info {
+            margin-bottom: 20px;
+            font-size: 11pt;
+            color: #7f8c8d;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin: 15px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 11pt;
+            overflow-x: auto;
+        }
+        .architecture-diagram {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .architecture-diagram img {
+            max-width: 100%;
+            height: auto;
+        }
+        .file-structure {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Consolas', monospace;
+            font-size: 11pt;
+        }
+        .note {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 10px;
+            margin: 15px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .two-columns {
+            display: flex;
+            justify-content: space-between;
+        }
+        .column {
+            width: 48%;
+        }
+        .file-structure {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Consolas', monospace;
+            font-size: 11pt;
+            overflow-x: auto;
+            white-space: pre;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="header">
+        <h1>Documentação Técnica</h1>
+        <h2>API REST para Gerenciamento de Vendas</h2>
+        <div class="header-info">
+            <p><strong>Data da Avaliação:</strong> 31/03/2025</p>
+            <p><strong>Desenvolvedor:</strong> Cairo Maranzatto</p>
+        </div>
+    </div>
+
+    <h2>1. Visão Geral do Projeto</h2>
+    
+    <h3>1.1 Objetivo</h3>
+    <p>Este documento apresenta a implementação de uma API REST para gerenciamento de vendas, desenvolvida como parte da avaliação técnica para a vaga de Desenvolvedor Sênior. O projeto demonstra a aplicação de conceitos avançados de desenvolvimento, arquitetura de software e boas práticas de programação.</p>
+    
+    <h3>1.2 Escopo</h3>
+    <ul>
+        <li>Desenvolvimento de API REST para gestão de vendas</li>
+        <li>Implementação de regras de negócio complexas</li>
+        <li>Sistema de descontos baseado em quantidade</li>
+        <li>Gestão de eventos de domínio</li>
+        <li>Documentação completa</li>
+    </ul>
+    
+    <div class="note">
+        <p><strong>Nota:</strong> Esta solução foi desenvolvida seguindo os princípios de Clean Architecture e Domain-Driven Design, garantindo alta coesão, baixo acoplamento e facilidade de manutenção.</p>
+    </div>
+</div>
+
+<div class="page">
+    <h2>2. Arquitetura e Estrutura do Projeto</h2>
+    
+    <h3>2.1 Decisões Arquiteturais</h3>
+    <div class="two-columns">
+        <div class="column">
+            <h4>Arquitetura Base</h4>
+            <ul>
+                <li>Clean Architecture</li>
+                <li>DDD (Domain-Driven Design)</li>
+                <li>CQRS (Command Query Responsibility Segregation)</li>
+                <li>Princípios SOLID</li>
+            </ul>
+        </div>
+        <div class="column">
+            <h4>Padrões Adicionais</h4>
+            <ul>
+                <li>Repository Pattern</li>
+                <li>Unit of Work</li>
+                <li>Specification Pattern</li>
+                <li>Event Sourcing</li>
+            </ul>
+        </div>
+    </div>
+    
+    <h3>2.2 Estrutura do Projeto</h3>
+    <div class="file-structure">
+        <pre>
+        Ambev.DeveloperEvaluation/
+        ├── src/
+        │   ├── WebApi/          # Camada de API/Interface
+        │   ├── Application/     # Camada de Aplicação
+        │   ├── Domain/          # Camada de Domínio
+        │   ├── ORM/            # Camada de Persistência
+        │   ├── IoC/            # Injeção de Dependência
+        │   └── Common/         # Componentes Compartilhados
+        └── tests/              # Testes Unitários e de Integração
+        </pre>
+        </div>
+    
+    <h3>2.3 Fluxo de Dados</h3>
+    <ol>
+        <li><strong>API Layer</strong> - Recebe requisições HTTP, valida entrada, mapeia DTOs e chama Application Layer</li>
+        <li><strong>Application Layer</strong> - Processa comandos/queries, coordena operações, publica eventos e chama Domain Layer</li>
+        <li><strong>Domain Layer</strong> - Contém regras de negócio, valida entidades, publica eventos e define interfaces</li>
+        <li><strong>ORM Layer</strong> - Implementa persistência, mapeia entidades, gerencia transações e otimiza queries</li>
+    </ol>
+    
+    <h3>2.4 Dependências Principais</h3>
+    <ul>
+        <li>.NET 7.0</li>
+        <li>Entity Framework Core</li>
+        <li>SQL Server</li>
+        <li>AutoMapper</li>
+        <li>FluentValidation</li>
+        <li>Swagger/OpenAPI</li>
+        <li>Docker</li>
+        <li>xUnit (testes)</li>
+    </ul>
+</div>
+
+<div class="page">
+    <h2>3. Mapeamento Detalhado do Projeto</h2>
+    
+    <h3>3.1 Camada de Domínio (Domain)</h3>
+    <table>
+        <tr>
+            <th>Categoria</th>
+            <th>Componentes</th>
+            <th>Descrição</th>
+        </tr>
+        <tr>
+            <td>Entidades</td>
+            <td>Sale.cs, SaleItem.cs, Product.cs, Customer.cs, Branch.cs</td>
+            <td>Entidades principais do domínio com comportamento e regras de negócio</td>
+        </tr>
+        <tr>
+            <td>Eventos</td>
+            <td>SaleCreatedEvent.cs, SaleCancelledEvent.cs, ItemCancelledEvent.cs</td>
+            <td>Eventos de domínio para comunicação entre agregados</td>
+        </tr>
+        <tr>
+            <td>Repositórios</td>
+            <td>ISaleRepository.cs, ISaleItemRepository.cs</td>
+            <td>Interfaces para persistência das entidades</td>
+        </tr>
+        <tr>
+            <td>Validações</td>
+            <td>SaleValidation.cs, SaleItemValidation.cs</td>
+            <td>Regras de validação complexas do domínio</td>
+        </tr>
+        <tr>
+            <td>Serviços</td>
+            <td>ISaleService.cs, SaleService.cs</td>
+            <td>Serviços de domínio para operações complexas</td>
+        </tr>
+    </table>
+    
+    <h3>3.2 Camada de Aplicação (Application)</h3>
+    <table>
+        <tr>
+            <th>Módulo</th>
+            <th>Componentes</th>
+            <th>Descrição</th>
+        </tr>
+        <tr>
+            <td>Vendas</td>
+            <td>CreateSaleCommand, CancelSaleCommand, GetSaleQuery, SaleEventHandler</td>
+            <td>Casos de uso relacionados a vendas</td>
+        </tr>
+        <tr>
+            <td>Usuários</td>
+            <td>CreateUserCommand, GetUserQuery</td>
+            <td>Gerenciamento de usuários</td>
+        </tr>
+        <tr>
+            <td>Autenticação</td>
+            <td>LoginCommand, TokenResponse</td>
+            <td>Autenticação JWT</td>
+        </tr>
+    </table>
+</div>
+
+<div class="page">
+    <h3>3.3 Camada de Persistência (ORM)</h3>
+    <table>
+        <tr>
+            <th>Categoria</th>
+            <th>Componentes</th>
+            <th>Descrição</th>
+        </tr>
+        <tr>
+            <td>Contexto</td>
+            <td>DefaultContext.cs</td>
+            <td>DbContext do Entity Framework</td>
+        </tr>
+        <tr>
+            <td>Mapeamentos</td>
+            <td>SaleMapping.cs, SaleItemMapping.cs, ProductMapping.cs</td>
+            <td>Configurações de mapeamento ORM</td>
+        </tr>
+        <tr>
+            <td>Repositórios</td>
+            <td>SaleRepository.cs, SaleItemRepository.cs</td>
+            <td>Implementações concretas dos repositórios</td>
+        </tr>
+    </table>
+    
+    <h3>3.4 Camada de API (WebApi)</h3>
+    <table>
+        <tr>
+            <th>Categoria</th>
+            <th>Componentes</th>
+            <th>Descrição</th>
+        </tr>
+        <tr>
+            <td>Controladores</td>
+            <td>SalesController.cs, UsersController.cs, AuthController.cs</td>
+            <td>Endpoints REST da API</td>
+        </tr>
+        <tr>
+            <td>Middleware</td>
+            <td>ErrorHandlingMiddleware.cs, AuthenticationMiddleware.cs</td>
+            <td>Tratamento global de erros e autenticação</td>
+        </tr>
+        <tr>
+            <td>Configuração</td>
+            <td>Program.cs, appsettings.json, Dockerfile</td>
+            <td>Configuração da aplicação e containerização</td>
+        </tr>
+    </table>
+    
+    <h3>3.5 Testes</h3>
+    <ul>
+        <li><strong>Testes Unitários:</strong> Domínio, aplicação e repositório</li>
+        <li><strong>Testes de Integração:</strong> API e banco de dados</li>
+    </ul>
+</div>
+
+<div class="page">
+    <h2>4. Funcionalidades Implementadas</h2>
+    
+    <h3>4.1 Gestão de Vendas</h3>
+    <ul>
+        <li>CRUD completo de vendas</li>
+        <li>Gestão de itens de venda</li>
+        <li>Cálculo automático de descontos</li>
+        <li>Sistema de cancelamento</li>
+    </ul>
+    
+    <h3>4.2 Regras de Negócio</h3>
+    <p>Exemplo de implementação do cálculo de descontos:</p>
+    <div class="code-block">
+public void CalculateDiscount()
+{
+    if (Quantity < 4) { Discount = 0; return; }
+    if (Quantity >= 10 && Quantity <= 20) { Discount = 0.20m; return; }
+    if (Quantity >= 4) { Discount = 0.10m; return; }
+    Discount = 0;
+}
+    </div>
+    
+    <h3>4.3 Eventos de Domínio</h3>
+    <ul>
+        <li>SaleCreatedEvent - Disparado quando uma nova venda é criada</li>
+        <li>SaleCancelledEvent - Disparado quando uma venda é cancelada</li>
+        <li>ItemCancelledEvent - Disparado quando um item de venda é cancelado</li>
+        <li>Sistema completo de logging de eventos</li>
+    </ul>
+    
+    <h3>4.4 Documentação da API</h3>
+    <ul>
+        <li>Documentação automática via Swagger/OpenAPI</li>
+        <li>README em inglês e português</li>
+        <li>Mapeamento completo do projeto</li>
+    </ul>
+</div>
+
+<div class="page last-page">
+    <h2>5. Aspectos Técnicos Destacados</h2>
+    
+    <div class="two-columns">
+        <div class="column">
+            <h3>5.1 Segurança</h3>
+            <ul>
+                <li>Autenticação JWT</li>
+                <li>Validação de entrada robusta</li>
+                <li>Proteção contra injeção SQL</li>
+                <li>Logging seguro de informações sensíveis</li>
+            </ul>
+            
+            <h3>5.2 Performance</h3>
+            <ul>
+                <li>Queries otimizadas com EF Core</li>
+                <li>Cache implementado para dados estáticos</li>
+                <li>Operações assíncronas em toda a stack</li>
+                <li>Carregamento eficiente de relacionamentos</li>
+            </ul>
+        </div>
+        <div class="column">
+            <h3>5.3 Escalabilidade</h3>
+            <ul>
+                <li>Arquitetura preparada para escala horizontal</li>
+                <li>Containerização com Docker</li>
+                <li>Health checks para monitoramento</li>
+                <li>Logging estruturado para análise</li>
+            </ul>
+            
+            <h3>5.4 Qualidade e Manutenibilidade</h3>
+            <ul>
+                <li>Código limpo e organizado</li>
+                <li>Nomes descritivos e significativos</li>
+                <li>Comentários relevantes apenas onde necessário</li>
+                <li>Cobertura abrangente de testes</li>
+                <li>Separação clara de responsabilidades</li>
+            </ul>
+        </div>
+    </div>
+    
+    <h2>6. Conclusão</h2>
+    <p>A implementação desta API de gerenciamento de vendas demonstra a aplicação de conceitos avançados de arquitetura de software e boas práticas de desenvolvimento. A solução foi projetada para ser robusta, escalável e de fácil manutenção, atendendo aos requisitos técnicos e funcionais especificados.</p>
+    
+    <p>A arquitetura baseada em Clean Architecture e DDD permite que o sistema evolua de forma sustentável, com regras de negócio claramente definidas e isoladas da infraestrutura. A implementação de CQRS e Event Sourcing proporciona flexibilidade para futuras extensões do sistema.</p>
+
+</div>
+
+</body>
+</html>
